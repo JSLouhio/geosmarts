@@ -1,0 +1,2 @@
+# geosmarts
+Geosmarts keskustelualue
