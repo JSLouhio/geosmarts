@@ -1,2 +1,2 @@
 # geosmarts
-Geosmarts keskustelualue
+Tänne syntyy keskustelualue
