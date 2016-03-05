@@ -9,3 +9,7 @@ https://drive.google.com/file/d/0Byg-foi3rAA7SXo2NlhzWnhvNkk/view?usp=sharing
     -> koodin saa ladattua NB-projektiksi Team-valikon kautta > remote > pull.
        Ladattua tänne puolestaan: Team > remote > push. Jos ei onnistu, niin kannattaa katsoa alla olevaa linkkiä:     
     http://stackoverflow.com/questions/25027653/git-remote-repository-contains-commits-unmerged-into-the-local-branch
+    
+5.3.2016 [Samuli]:
+  - Tietokantakaavio on nyt päivitetty create table -lauseiden mukaisesti.
+  https://drive.google.com/file/d/0Byg-foi3rAA7SXo2NlhzWnhvNkk/view?usp=sharing
