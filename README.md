@@ -13,3 +13,6 @@ https://drive.google.com/file/d/0Byg-foi3rAA7SXo2NlhzWnhvNkk/view?usp=sharing
 5.3.2016 [Samuli]:
   - Tietokantakaavio on nyt päivitetty create table -lauseiden mukaisesti.
   https://drive.google.com/file/d/0Byg-foi3rAA7SXo2NlhzWnhvNkk/view?usp=sharing
+
+6.3.2016 [Julius]
+  - Raportin runko on nyt Google Docsissa ja sitä voi vapaasti muokata: https://docs.google.com/document/d/1vr1y-XWoE-DzNxTxLZG8WN-K4EkpXK89MrszsA3Kg_s/edit?usp=sharing
