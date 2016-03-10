@@ -33,7 +33,7 @@ public class Main {
         String c = aaa.get(2);
 
         String hei = sana;
-        get("/hei", (req, res) -> {
+        get("/", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("ida", a);
             map.put("idb", b);

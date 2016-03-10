@@ -7,10 +7,25 @@
     </head>
 
     <body>
-        <h1>Geosmarts.com</h1>
+
+        <img src="http://www.auplod.com/u/ulaopd76ab9.png" alt="Geosmarts"></img>
         <h2> Alue   Viestejä    Viimeinen viesti</h2>
         <h3 th:text="${ida}"> </h3>
         <h4 th:text="${idb}"> </h4>
         <h5 th:text="${idc}"> </h5>
+
+        <table style="width:50%">
+            <tr>
+                <td><h2>Alue</h2></td>
+                <td><h2>Viestejä</h2></td> 
+                <td><h2>Viimeisin viesti</h2></td>
+            </tr>
+            <tr>
+                <td th:text="${ida}">Eve</td>
+                <td>Jackson</td> 
+                <td>94</td>
+            </tr>
+        </table>
+
     </body>
 </html>
