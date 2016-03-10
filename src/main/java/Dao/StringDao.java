@@ -38,7 +38,7 @@ public class StringDao implements Dao<String, Integer> {
     }
 
     @Override
-    public List<String> AlueetYhtAika() throws SQLException {
+    public ArrayList<String> AlueetYhtAika() throws SQLException {
 
         this.db.connect();
         PreparedStatement stmt = this.db.getConnection().prepareStatement("SELECT DISTINCT alue.nimi,Count(viesti.id_viesti), MAX(viesti.aika) FROM alue\n"
@@ -47,22 +47,26 @@ public class StringDao implements Dao<String, Integer> {
                 + "group by alue.nimi");
 
         ResultSet rs = stmt.executeQuery();
-        List<String> alueetYhteensaJaAika = new ArrayList<>();
-        
-        
+        ArrayList<String> alueetYhteensaJaAika = new ArrayList<>();
+
+        String alueet = "";
+        String viestit = "";
+        String ajat = "";
 
         while (rs.next()) {
 
-            String nimi = rs.getString(1);
-            String viesteja = String.valueOf(rs.getInt(2));
+            alueet = alueet + rs.getString(1)+ ",";
+            viestit = viestit + String.valueOf(rs.getInt(2))+ ",";
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String aikataulu = dateFormat.format(rs.getTimestamp(3));
-
-            String a = nimi + " " + viesteja + " " + aikataulu;
-            alueetYhteensaJaAika.add(a);
+            ajat = ajat  + dateFormat.format(rs.getTimestamp(3))+ ",";
 
         }
+
+        alueetYhteensaJaAika.add(alueet);
+        alueetYhteensaJaAika.add(viestit);
+        alueetYhteensaJaAika.add(ajat);
+        
         rs.close();
         stmt.close();
         this.db.disconnect();

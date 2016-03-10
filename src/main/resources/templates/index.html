@@ -2,30 +2,61 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Otsikko</title>
+        <title>Geosmarts.com</title>
         <meta charset="utf-8" />
     </head>
 
     <body>
 
         <img src="http://www.auplod.com/u/ulaopd76ab9.png" alt="Geosmarts"></img>
-        <h2> Alue   Viestejä    Viimeinen viesti</h2>
-        <h3 th:text="${ida}"> </h3>
-        <h4 th:text="${idb}"> </h4>
-        <h5 th:text="${idc}"> </h5>
 
-        <table style="width:50%">
+        <table id="Aluetable" style="width:50%">
+
             <tr>
                 <td><h2>Alue</h2></td>
-                <td><h2>Viestejä</h2></td> 
+                <td><h2>Viesteja yhteensa</h2></td> 
                 <td><h2>Viimeisin viesti</h2></td>
             </tr>
             <tr>
-                <td th:text="${ida}">Eve</td>
-                <td>Jackson</td> 
-                <td>94</td>
+                <td th:text="${ida}">rivi1 solu1</td>
+                <td th:text="${idb}">rivi1 solu2</td> 
+                <td th:text="${idc}">rivi1 solu3</td>
             </tr>
+            <tr>
+                <td th:text="${idd}">rivi2 solu1</td>
+                <td th:text="${ide}">rivi2 solu2</td> 
+                <td th:text="${idf}">rivi2 solu3</td>
+            </tr>
+            <tr>
+                <td th:text="${idg}">rivi3 solu1</td>
+                <td th:text="${idh}">rivi3 solu2</td> 
+                <td th:text="${idi}">rivi3 solu3</td>
+            </tr>   
         </table>
+
+        <button onclick="lisaakeskustelu()">Create row</button>
+
+        <script>
+            function lisaakeskustelu() {
+                var table = document.getElementById("Aluetable");
+                var row = table.insertRow(4);
+                var solu1 = row.insertCell(0);
+                var solu2 = row.insertCell(1);
+                var solu3 = row.insertCell(2);
+                solu1.innerHTML = "Uusi alue";
+                solu2.innerHTML = "0";
+                solu3.innerHTML = "1985-01-02";
+            }
+
+
+        </script>
+
+        <form method="POST" action="/">
+            Alue:<br/>
+            <input type="text" name="keskustelualue"/><br/>
+            <input type="submit" value="Lisaa Keskustelualue"/>
+        </form>
+
 
     </body>
 </html>
