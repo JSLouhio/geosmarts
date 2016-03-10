@@ -54,20 +54,17 @@ public class AlueDao implements Dao<Alue, Integer> {
         ResultSet rs = stmt.executeQuery();
         List<Alue> alueet = new ArrayList<>();
 
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            return null;
-        }
 
         while (rs.next()) {
 
-            int id = rs.getInt("Id");
-            String nimi = rs.getString("Nimi");
+            int id = rs.getInt(1);
+            String nimi = rs.getString(2);
 
             Alue a = new Alue(id, nimi);
             alueet.add(a);
             this.db.lisaaAlue(a);
         }
+        
         rs.close();
         stmt.close();
         this.db.disconnect();
@@ -99,10 +96,6 @@ public class AlueDao implements Dao<Alue, Integer> {
         ResultSet rs = stmt.executeQuery();
         List<Alue> alueet = new ArrayList<>();
 
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            return null;
-        }
 
         while (rs.next()) {
             int id = rs.getInt("Id");
@@ -135,4 +128,12 @@ public class AlueDao implements Dao<Alue, Integer> {
 
     }
 
+    @Override
+    public List<Alue> AlueetYhtAika() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+
 }
+

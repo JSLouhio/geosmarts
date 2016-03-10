@@ -20,4 +20,8 @@ public interface Dao<T, K> {
     
     //poista
     void delete(K key) throws SQLException;
+    
+    List<T> AlueetYhtAika() throws SQLException;
+    
+    
 }

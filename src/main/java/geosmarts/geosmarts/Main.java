@@ -19,21 +19,28 @@ public class Main {
         Database db = new Database();
 
         StringDao sd = new StringDao(db);
-        
-        
+
         ArrayList<String> aaa = new ArrayList<String>(sd.AlueetYhtAika());
         String sana = "";
-        
-        
-        for (String s : aaa) {
-            sana = sana + s + "\n";
-            
-        }
+
+//        for (String s : aaa) {
+//            sana = sana + s + "\n";
+//            sana = sana + "\n";
+//
+//        }
+        String a = aaa.get(0);
+        String b = aaa.get(1);
+        String c = aaa.get(2);
 
         String hei = sana;
         get("/hei", (req, res) -> {
-            return hei;
-        });
+            HashMap map = new HashMap<>();
+            map.put("ida", a);
+            map.put("idb", b);
+            map.put("idc", c);
+
+            return new ModelAndView(map, "index");
+        }, new ThymeleafTemplateEngine());
 
         //////
     }

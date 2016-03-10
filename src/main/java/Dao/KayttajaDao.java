@@ -56,10 +56,7 @@ public class KayttajaDao implements Dao<Kayttaja, String> {
         ResultSet rs = stmt.executeQuery();
         List<Kayttaja> kayttajat = new ArrayList<>();
 
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            return null;
-        }
+        
 
         while (rs.next()) {
             int id = rs.getInt("Id");
@@ -103,10 +100,6 @@ public class KayttajaDao implements Dao<Kayttaja, String> {
         ResultSet rs = stmt.executeQuery();
         List<Kayttaja> kayttajat = new ArrayList<>();
 
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            return null;
-        }
 
         while (rs.next()) {
             int id = rs.getInt("Id");
@@ -140,6 +133,13 @@ public class KayttajaDao implements Dao<Kayttaja, String> {
         }
         this.db.getKayttajat().remove(poistettava);
         
+    }
+
+
+
+    @Override
+    public List<Kayttaja> AlueetYhtAika() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

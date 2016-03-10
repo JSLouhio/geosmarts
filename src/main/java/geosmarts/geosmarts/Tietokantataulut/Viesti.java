@@ -14,14 +14,14 @@ public class Viesti {
 
     }
 
-    public Viesti(int id, int kid, int vid, String s, Date d){
-        this.id=id;
-        this.kayttajaId=kid;
-        this.viestiketjuId=vid;
-        this.sisalto=s;
-        this.aika=d;
+    public Viesti(int id, int kid, int vid, String s, Date d) {
+        this.id = id;
+        this.kayttajaId = kid;
+        this.viestiketjuId = vid;
+        this.sisalto = s;
+        this.aika = d;
     }
-    
+
     public void setId(int i) {
         this.id = i;
     }
@@ -65,4 +65,20 @@ public class Viesti {
     public Date getAika() {
         return this.aika;
     }
+
+    public String toString() {
+
+        int id = this.getId();
+        int kayttajaId = this.getKayttajIs();
+        int viestiketjuId = this.getViestiKetjId();
+        String sisalto = this.getSisalto();
+        Date aika = this.getAika();
+
+        String palaute = "";
+
+        palaute = palaute + "viestin ID: "+id + "\n" + "Käyttäjän ID: "+ kayttajaId + "\n" +"Viestiketjun ID: "+ viestiketjuId + "\n" + "Sisältö: "+ sisalto + "\n" +"Aika: "+ aika+"\n"+"__________________________________";
+        return palaute;
+
+    }
+
 }

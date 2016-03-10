@@ -24,7 +24,7 @@ public class Database<T> {
     }
 
     public void connect() throws SQLException {
-        String nimi = "";    //<- tähän tietokannan nimi (eli varmaan jotain tyyliin "geosmarts")
+        String nimi = "geosmarts";    //<- tähän tietokannan nimi (eli varmaan jotain tyyliin "geosmarts")
         this.connection = DriverManager.getConnection("jdbc:sqlite:" + nimi + ".db");
         this.stmt = this.connection.createStatement();
     }

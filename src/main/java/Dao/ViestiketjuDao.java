@@ -56,10 +56,6 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         ResultSet rs = stmt.executeQuery();
         List<Viestiketju> viestiketjut = new ArrayList<>();
 
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            return null;
-        }
 
         while (rs.next()) {
 
@@ -102,10 +98,6 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         ResultSet rs = stmt.executeQuery();
         List<Viestiketju> viestiketjut = new ArrayList<>();
 
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            return null;
-        }
 
         while (rs.next()) {
             int id = rs.getInt("Id");
@@ -137,6 +129,11 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         }
         this.db.getViestiketjut().remove(poistettava);
 
+    }
+
+    @Override
+    public List<Viestiketju> AlueetYhtAika() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -55,18 +55,15 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         ResultSet rs = stmt.executeQuery();
         List<Viesti> viestit = new ArrayList<>();
 
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            return null;
-        }
+        
 
         while (rs.next()) {
 
-            int id = rs.getInt("Id");
-            int kayttajaId = rs.getInt("KayttajaId");
-            int viestiketjuId = rs.getInt("ViestiketjuId");
-            String sisalto = rs.getString("Sisalto");
-            Date aika = rs.getDate("aika");
+            int id = rs.getInt(1);
+            int kayttajaId = rs.getInt(2);
+            int viestiketjuId = rs.getInt(3);
+            String sisalto = rs.getString(4);
+            Date aika = rs.getDate(5);
 
             Viesti v = new Viesti(id, kayttajaId, viestiketjuId, sisalto, aika);
             viestit.add(v);
@@ -103,10 +100,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         ResultSet rs = stmt.executeQuery();
         List<Viesti> viestit = new ArrayList<>();
 
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            return null;
-        }
+        
 
         while (rs.next()) {
             int id = rs.getInt("Id");
@@ -140,6 +134,11 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         }
         this.db.getViestit().remove(poistettava);
 
+    }
+
+    @Override
+    public List<Viesti> AlueetYhtAika() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
