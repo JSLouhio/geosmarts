@@ -74,4 +74,9 @@ public class StringDao implements Dao<String, Integer> {
         return alueetYhteensaJaAika;
 
     }
+    
+     @Override
+    public void create(String string) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

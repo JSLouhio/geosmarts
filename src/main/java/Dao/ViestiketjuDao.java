@@ -136,4 +136,9 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void create(Viestiketju taulu) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

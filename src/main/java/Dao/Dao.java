@@ -23,5 +23,7 @@ public interface Dao<T, K> {
     
     List<T> AlueetYhtAika() throws SQLException;
     
+    // lisaa tauluun (eli INSERT INTO <taulu>...
+    void create(T taulu) throws SQLException;
     
 }

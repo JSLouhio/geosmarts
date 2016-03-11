@@ -132,8 +132,16 @@ public class AlueDao implements Dao<Alue, Integer> {
     public List<Alue> AlueetYhtAika() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
     
+    @Override
+    public void create(Alue alue) throws SQLException {
+         String sql = "INSERT INTO Alue "
+                + "(nimi) VALUES ("
+                + (alue.getNimi()) + 
+                 " );";
+        db.update(sql);
+    }
+
 
 }
 

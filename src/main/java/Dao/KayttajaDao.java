@@ -56,8 +56,6 @@ public class KayttajaDao implements Dao<Kayttaja, String> {
         ResultSet rs = stmt.executeQuery();
         List<Kayttaja> kayttajat = new ArrayList<>();
 
-        
-
         while (rs.next()) {
             int id = rs.getInt("Id");
             String nimi = rs.getString("nimi");
@@ -100,7 +98,6 @@ public class KayttajaDao implements Dao<Kayttaja, String> {
         ResultSet rs = stmt.executeQuery();
         List<Kayttaja> kayttajat = new ArrayList<>();
 
-
         while (rs.next()) {
             int id = rs.getInt("Id");
             String nimi = rs.getString("nimi");
@@ -132,13 +129,16 @@ public class KayttajaDao implements Dao<Kayttaja, String> {
             poistettava++;
         }
         this.db.getKayttajat().remove(poistettava);
-        
+
     }
-
-
 
     @Override
     public List<Kayttaja> AlueetYhtAika() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void create(Kayttaja kayttaja) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

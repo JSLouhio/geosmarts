@@ -13,6 +13,11 @@ public class Alue {
         this.nimi=n;
         this.viestiketjut = new ArrayList();
     }
+    
+    public Alue(String n) {
+               this.nimi=n;
+        this.viestiketjut = new ArrayList();
+    }
 
     public void setId(int i) {
         this.id = i;

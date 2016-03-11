@@ -18,8 +18,6 @@ public class Main {
 
         alustaThyme();
 
-        
-        
         //////
     }
 
@@ -27,6 +25,8 @@ public class Main {
         Database db = new Database();
 
         StringDao sd = new StringDao(db);
+
+        AlueDao ad = new AlueDao(db);
 
         List<String> aaa = sd.AlueetYhtAika();
 
@@ -55,6 +55,15 @@ public class Main {
         String g = ac.get(2);
         String h = vc.get(2);
         String i = pc.get(2);
+
+         // kysy ja lisaa alueen nimi
+        post("/", (req, res) -> {
+            String nimi = req.queryParams("keskustelualue");
+            Alue uusi_alue = new Alue(nimi);
+            ad.create(uusi_alue);
+
+            return "Lisätty alue: " + nimi;
+        });
 
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
