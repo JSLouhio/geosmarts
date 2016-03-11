@@ -10,9 +10,14 @@ public class Viestiketju {
     private ArrayList<Viesti> viestit;
 
     public Viestiketju(int id, String a, Date d) {
-        this.id=id;
-        this.aihe=a;
-        this.pvm=d;
+        this.id = id;
+        this.aihe = a;
+        this.pvm = d;
+        this.viestit = new ArrayList();
+    }
+
+    public Viestiketju(String aihe) {
+        this.aihe = aihe;
         this.viestit = new ArrayList();
     }
 

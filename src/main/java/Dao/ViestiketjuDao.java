@@ -56,7 +56,6 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         ResultSet rs = stmt.executeQuery();
         List<Viestiketju> viestiketjut = new ArrayList<>();
 
-
         while (rs.next()) {
 
             int id = rs.getInt("Id");
@@ -98,7 +97,6 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         ResultSet rs = stmt.executeQuery();
         List<Viestiketju> viestiketjut = new ArrayList<>();
 
-
         while (rs.next()) {
             int id = rs.getInt("Id");
             String aihe = rs.getString("Aihe");
@@ -137,8 +135,14 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     }
 
     @Override
-    public void create(Viestiketju taulu) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void create(Viestiketju vk) throws SQLException {
+        String lisattava = vk.getAihe();
+
+        String sql = "INSERT INTO Viestiketju "
+                + "(aihe) VALUES ('"
+                + (lisattava)
+                + "');";
+        db.update(sql);
     }
 
 }

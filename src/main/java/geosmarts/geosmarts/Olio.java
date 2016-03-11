@@ -5,6 +5,7 @@ public class Olio {
     private String nimi;
     private String viestit;
     private String pvm;
+    private String aihe;
 
     public Olio() {
 
@@ -18,6 +19,10 @@ public class Olio {
         this.viestit = n;
     }
 
+    public void setAihe(String a){
+        this.aihe=a;
+    }
+    
     public void setPvm(String n) {
         this.pvm = n;
     }
@@ -32,5 +37,8 @@ public class Olio {
 
     public String getPvm() {
         return this.pvm;
+    }
+    public String getAihe(){
+        return this.aihe;
     }
 }

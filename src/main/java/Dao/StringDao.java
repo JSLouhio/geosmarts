@@ -83,4 +83,47 @@ public class StringDao implements Dao<String, Integer> {
     public void create(String string) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public ArrayList<String> viestiketjut() throws SQLException {
+
+        this.db.connect();
+        PreparedStatement stmt = this.db.getConnection().prepareStatement("SELECT viestiketju.aihe AS Viestiketju, COUNT(*) AS Viestejä_yhteensä, viesti.aika AS Viimeisin_viesti\n"
+                + "FROM viestiketju, viesti, alue\n"
+                + "WHERE viestiketju.id_viestiketju = viesti.viestiketju_id\n"
+                + "AND alue.id_alue = viestiketju.alue_id\n"
+                + "AND viestiketju.alue_id = 2\n"
+                + "GROUP BY viestiketju.aihe");
+
+        ResultSet rs = stmt.executeQuery();
+        ArrayList<String> viestiketjut = new ArrayList<>();
+
+        String viestiketj = "";
+        String viestit = "";
+        String ajat = "";
+
+        while (rs.next()) {
+
+            viestiketj = viestiketj + rs.getString(1) + ",";
+            viestit = viestit + String.valueOf(rs.getInt(2)) + ",";
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            if (rs.getTimestamp(3) == null) {
+                ajat = ajat + "0000-00-00 00:00:00" + ",";
+            } else {
+
+                ajat = ajat + dateFormat.format(rs.getTimestamp(3)) + ",";
+
+            }
+        }
+        viestiketjut.add(viestiketj);
+        viestiketjut.add(viestit);
+        viestiketjut.add(ajat);
+
+        rs.close();
+        stmt.close();
+        this.db.disconnect();
+
+        return viestiketjut;
+    }
+
 }
