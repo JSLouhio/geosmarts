@@ -135,10 +135,12 @@ public class AlueDao implements Dao<Alue, Integer> {
     
     @Override
     public void create(Alue alue) throws SQLException {
-         String sql = "INSERT INTO Alue "
-                + "(nimi) VALUES ("
-                + (alue.getNimi()) + 
-                 " );";
+        String lisattava = alue.getNimi(); 
+        
+        String sql = "INSERT INTO Alue "
+                + "(nimi) VALUES ('"
+                + (lisattava) + 
+                 "');";
         db.update(sql);
     }
 

@@ -34,7 +34,6 @@
             </tr>   
         </table>
 
-        <button onclick="lisaakeskustelu()">Create row</button>
 
         <script>
             function lisaakeskustelu() {
@@ -51,10 +50,10 @@
 
         </script>
 
-        <form method="POST" action="/">
+        <form method="POST" action="/" id="aaa">
             Alue:<br/>
             <input type="text" name="keskustelualue"/><br/>
-            <input type="submit" value="Lisaa Keskustelualue"/>
+            <input type="submit" value="Lisaa Keskustelualue" onclick="lisaakeskustelu()"/>
         </form>
 
 

@@ -63,6 +63,7 @@ public class Main {
             ad.create(uusi_alue);
 
             return "Lisätty alue: " + nimi;
+//            return false;
         });
 
         get("/", (req, res) -> {
