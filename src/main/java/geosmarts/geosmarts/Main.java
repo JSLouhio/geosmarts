@@ -16,17 +16,45 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        alustaThyme();
-
-        //////
-    }
-
-    public static void alustaThyme() throws SQLException {
         Database db = new Database();
 
         StringDao sd = new StringDao(db);
 
         AlueDao ad = new AlueDao(db);
+
+        tulosta();
+        post("/", (req, res) -> {
+            String nimi = req.queryParams("keskustelualue");
+            Alue uusi_alue = new Alue(nimi);
+            ad.create(uusi_alue);
+
+            tulosta();
+
+            return "Lisätty alue: " + nimi;
+//          return ;
+
+        });
+        //////
+    }
+
+    public static void tulosta() throws SQLException {
+        Database db = new Database();
+        AlueDao ad = new AlueDao(db);
+
+        ArrayList<Olio> lista = spliz();
+
+        get("/", (req, res) -> {
+            HashMap map = new HashMap<>();
+
+            map.put("aa", lista);
+
+            return new ModelAndView(map, "index");
+        }, new ThymeleafTemplateEngine());
+    }
+
+    public static ArrayList<Olio> spliz() throws SQLException {
+        Database db = new Database();
+        StringDao sd = new StringDao(db);
 
         List<String> aaa = sd.AlueetYhtAika();
 
@@ -43,45 +71,23 @@ public class Main {
         String[] paivays = carlos.split(",");
         List<String> pc = Arrays.asList(paivays);
 
-//        System.out.println("alueet: " + aluecontainer);
-//        System.out.println("viestit: " + viesticontainer);
-//        System.out.println("päivöt: " + paivayscontainer);
-        String a = ac.get(0);
-        String b = vc.get(0);
-        String c = pc.get(0);
-        String d = ac.get(1);
-        String e = vc.get(1);
-        String f = pc.get(1);
-        String g = ac.get(2);
-        String h = vc.get(2);
-        String i = pc.get(2);
+        System.out.println("alueet: " + ac);
+        System.out.println("viestit: " + vc);
+        System.out.println("päivöt: " + pc);
 
-         // kysy ja lisaa alueen nimi
-        post("/", (req, res) -> {
-            String nimi = req.queryParams("keskustelualue");
-            Alue uusi_alue = new Alue(nimi);
-            ad.create(uusi_alue);
+        ArrayList<Olio> lista = new ArrayList();
 
-            return "Lisätty alue: " + nimi;
-//            return false;
-        });
+        int i = 0;
+        for (String r : ac) {
+            Olio o = new Olio();
+            o.setNimi(ac.get(i));
+            o.setViestit(vc.get(i));
+            o.setPvm(pc.get(i));
+            i++;
+            lista.add(o);
+        }
 
-        get("/", (req, res) -> {
-            HashMap map = new HashMap<>();
-            map.put("ida", a);                  //  1 alueet
-            map.put("idb", b);                  //  1 viestit
-            map.put("idc", c);                  //  1 timestamp
-
-            map.put("idd", d);                  //  2 alueet
-            map.put("ide", e);                  //  2 viestit
-            map.put("idf", f);                  //  2 timestamp
-
-            map.put("idg", g);                  //  3 alueet
-            map.put("idh", h);                  //  3 viestit
-            map.put("idi", i);                  //  3 timestamp
-
-            return new ModelAndView(map, "index");
-        }, new ThymeleafTemplateEngine());
+        return lista;
     }
 
 }

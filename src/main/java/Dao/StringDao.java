@@ -42,8 +42,8 @@ public class StringDao implements Dao<String, Integer> {
 
         this.db.connect();
         PreparedStatement stmt = this.db.getConnection().prepareStatement("SELECT DISTINCT alue.nimi,Count(viesti.id_viesti), MAX(viesti.aika) FROM alue\n"
-                + "INNER JOIN viestiketju ON alue.id_alue = viestiketju.alue_id\n"
-                + "INNER JOIN viesti ON viestiketju.id_viestiketju = viesti.viestiketju_id\n"
+                + "LEFT JOIN viestiketju ON alue.id_alue = viestiketju.alue_id\n"
+                + "LEFT JOIN viesti ON viestiketju.id_viestiketju = viesti.viestiketju_id\n"
                 + "group by alue.nimi");
 
         ResultSet rs = stmt.executeQuery();
@@ -55,18 +55,22 @@ public class StringDao implements Dao<String, Integer> {
 
         while (rs.next()) {
 
-            alueet = alueet + rs.getString(1)+ ",";
-            viestit = viestit + String.valueOf(rs.getInt(2))+ ",";
+            alueet = alueet + rs.getString(1) + ",";
+            viestit = viestit + String.valueOf(rs.getInt(2)) + ",";
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            ajat = ajat  + dateFormat.format(rs.getTimestamp(3))+ ",";
+            if (rs.getTimestamp(3) == null) {
+                ajat = ajat + "0000-00-00 00:00:00" + ",";
+            } else {
 
+                ajat = ajat + dateFormat.format(rs.getTimestamp(3)) + ",";
+
+            }
         }
-
         alueetYhteensaJaAika.add(alueet);
         alueetYhteensaJaAika.add(viestit);
         alueetYhteensaJaAika.add(ajat);
-        
+
         rs.close();
         stmt.close();
         this.db.disconnect();
@@ -74,8 +78,8 @@ public class StringDao implements Dao<String, Integer> {
         return alueetYhteensaJaAika;
 
     }
-    
-     @Override
+
+    @Override
     public void create(String string) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
