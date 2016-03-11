@@ -19,5 +19,6 @@ https://drive.google.com/file/d/0Byg-foi3rAA7SXo2NlhzWnhvNkk/view?usp=sharing
 
 10.3.2016 [Juri]
   - Koodista tehty nyt periaattessa ryhmätyöohjeiden kohta 3.5.. Alueiden lisäysmahdollisuus (3.6.) työn alla.
+  - 
 11.3.2016 [Juuso]
-  Apua ahdinkoon? https://tsoha.github.io/#/viikko1#top
+  - Apua ahdinkoon? https://tsoha.github.io/#/viikko1#top
