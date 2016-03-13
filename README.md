@@ -22,3 +22,6 @@ https://drive.google.com/file/d/0Byg-foi3rAA7SXo2NlhzWnhvNkk/view?usp=sharing
 
 11.3.2016 [Juuso]
   - Apua ahdinkoon? https://tsoha.github.io/#/viikko1#top
+
+13.3.2016 [Juuso]
+  - Tietokantaulujen date-formaatti ja NOT NULL arvot päivitetty. Liitteennä tekstitiedosto jossa ohjeet tietokantataulumuutoksiin.
