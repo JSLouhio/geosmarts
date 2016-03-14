@@ -28,4 +28,7 @@ https://drive.google.com/file/d/0Byg-foi3rAA7SXo2NlhzWnhvNkk/view?usp=sharing
 
 13.3.2016 [Juri]:
   - Hieman uudistuksia päivitetty, uus versio uutena Branch:na. Vielä on aika paljon hommaa edessä, mutta uskoisin että      
-    html-puoli alkaa pikkuhiljaa sujua.
+    html-puoli alkaa pikkuhiljaa sujua. Uus tietokanta toimii, mutta päivämäärät on jotenkin rikki. siirty vuodesta 1976->2680?
+  - ilmeisesti myös tossa uusVersio -branchissa database corruptoitunut (ottakaa .db main-branchista).
+
+
