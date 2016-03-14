@@ -1,13 +1,13 @@
-//Muutto vanhoista tauluista sisï¿½ltï¿½ineen uusiin eri constrainteilla.  (eli default date ja ei NOT NULL)
+//Muutto vanhoista tauluista sisältöineen uusiin eri constrainteilla.  (eli default date ja ei NOT NULL)
 
 Vaiheet: 
 1. Luo uudet taulut halutuilla muutoksilla schemaan. Uusien taulujen nimi on <taulu>2. CREATE TABLE
-2. Kopio sisï¿½ltï¿½ <taulu> -> <taulu>2 INSERT INTO
+2. Kopio sisältö <taulu> -> <taulu>2 INSERT INTO
 3. Tuhoa vanhat taulut <taulu>. DROP TABLE
-4. Nimeï¿½ uudet taulut vanhoiksi tauluiksi. <taulu>2 -> <taulu> ALTER TABLE RENAME TO
+4. Nimeä uudet taulut vanhoiksi tauluiksi. <taulu>2 -> <taulu> ALTER TABLE RENAME TO
 5. Valmis.  
 
-Alla komennot SQLite yhdessï¿½ pumaskassa:
+Alla komennot SQLite yhdessä pumaskassa:
 
 PRAGMA foreign_keys = ON;
 
@@ -19,7 +19,7 @@ CREATE TABLE Alue2 (
 CREATE TABLE Viestiketju2 (
 	id_viestiketju integer PRIMARY KEY,
 	aihe text NOT NULL UNIQUE,
-	pvm DATE DEFAULT (strftime('%Y%m%d%H%M%S', 'now', 'localtime')),
+	pvm DATE DEFAULT (datetime('now','localtime')),
 	alue_id integer NOT NULL,
 	FOREIGN KEY(alue_id) REFERENCES Alue(id_alue)
 );
@@ -28,7 +28,7 @@ CREATE TABLE Kayttaja2 (
 	id_kayttaja integer PRIMARY KEY,
 	nimimerkki varchar(80) NOT NULL UNIQUE,
 	salasana varchar(50) NOT NULL,
-	liittymispvm DATE DEFAULT (strftime('%Y%m%d%H', 'now', 'localtime')),
+	liittymispvm DATE DEFAULT (datetime('now','localtime')),
 	status integer NOT NULL
 );
 
@@ -36,8 +36,8 @@ CREATE TABLE Viesti2 (
 	id_viesti integer PRIMARY KEY,
 	lahettaja_id integer NOT NULL,
 	viestiketju_id integer NOT NULL,
-	sisalto text,
-	pvm DATE DEFAULT (strftime('%Y%m%d%H%M%S', 'now', 'localtime')),
+	sisalto text NOT NULL,
+	aika DATE DEFAULT (datetime('now','localtime')),
 	FOREIGN KEY(lahettaja_id) REFERENCES Kayttaja(id_kayttaja),
 	FOREIGN KEY(viestiketju_id) REFERENCES Viestiketju(id_viestiketju)
 );
@@ -74,45 +74,70 @@ INSERT INTO Kayttaja3 SELECT id_kayttaja, nimimerkki, salasana, status FROM Kayt
 aika DATE DEFAULT (strftime('%Y%m%d%H%M%S', 'now', 'localtime')),
 
 
-insert into Viesti3 (lahettaja_id, viestiketju_id, sisalto) VALUES (1, 2, 'lol'); 
-	aika DATE DEFAULT (strftime('%Y%m%d%H%M%S', 'now', 'localtime')),
-	FOREIGN KEY(lahettaja_id) REFERENCES Kayttaja(id_kayttaja),
-	FOREIGN KEY(viestiketju_id) REFERENCES Viestiketju(id_viestiketju)
-);
-	
-INSERT INTO Kayttaja2 SELECT * FROM Kayttaja;
-INSERT INTO Alue2 SELECT * FROM Alue;
-INSERT INTO Viestiketju2 SELECT * FROM Viestiketju;
-INSERT INTO Viesti2 SELECT * FROM Viesti;
+ DATE DEFAULT (DATETIME('YYYY-MM-DD HH:MM:SS', 'now', 'localtime'))
 
-DROP TABLE Kayttaja;
-DROP TABLE Alue;
-DROP TABLE Viestiketju;
-DROP TABLE Viesti;
+insert into Kayttaja2 (nimimerkki, salasana, status) values ('jope', 'lol', 0);
 
-ALTER TABLE Kayttaja2 RENAME TO Kayttaja;
-ALTER TABLE Alue2 RENAME TO Alue;
-ALTER TABLE Viestiketju2 RENAME TO Viestiketju;
-ALTER TABLE Viesti2 RENAME TO Viesti;
-
-//Muutoksia ja sekalaisia SQL muistiinpanoja
-
-strftime('%Y%m%d%H%M', 'now');
-
-date DEFAULT (datetime('now','localtime'))
-
-CREATE TABLE test (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  a integer,
-  t DATETIME DEFAULT (datetime('now','localtime'))
-);
-
-INSERT INTO Kayttaja3 SELECT id_kayttaja, nimimerkki, salasana, status FROM Kayttaja;
-
-aika DATE DEFAULT (strftime('%Y%m%d%H%M%S', 'now', 'localtime')),
+insert into Viesti (lahettaja_id, viestiketju_id, sisalto) VALUES (9, 9, 'lol');
 
 
 insert into Viesti3 (lahettaja_id, viestiketju_id, sisalto) VALUES (1, 2, 'lol');
 
 insert into Viesti2 (lahettaja_id, viestiketju_id, sisalto, aika) SELECT lahettaja_id, viestiketju_id, sisalto, pvm FROM Viestio;
 
+
+
+// Aika ja pvm timestamp update muotoon taualuista Viesti, Kayttaja ja Viestiketju -> YYYY-MM-DD HH:MM:SS
+UPDATE Viesti
+SET aika = substr(aika, 1, 4) || '-' ||
+             substr(aika, 5, 2) || '-' ||
+             substr(aika, 7, 2) || ' ' ||
+             substr(aika, 9, 2) || ':' ||
+             substr(aika, 11, 2) || ':00';
+
+UPDATE Kayttaja
+SET liittymispvm = substr(liittymispvm, 4, 4) || '-' ||
+             substr(liittymispvm, 2, 2) || '-0' ||
+             substr(liittymispvm, 1, 1) || ' 00:00:00';
+
+UPDATE Viestiketju
+SET pvm = substr(pvm, 4, 4) || '-' ||
+             substr(pvm, 2, 2) || '-0' ||
+             substr(pvm, 1, 1) || ' 00:00:00';
+
+
+-----
+
+CREATE TABLE Kayttaja2 (
+	id_kayttaja integer PRIMARY KEY,
+	nimimerkki varchar(80) NOT NULL UNIQUE,
+	salasana varchar(50) NOT NULL,
+	liittymispvm DATETIME DEFAULT (datetime('now','localtime')),
+	status integer NOT NULL
+);
+INSERT INTO Kayttaja2 SELECT * FROM Kayttaja;
+
+
+/// Kayttaja ja Viestiketjujen vanhojen datejen muunnos.
+
+UPDATE Kayttaja
+SET liittymispvm = substr(liittymispvm, 4, 4) || '-' ||
+             substr(liittymispvm, 2, 2) || '-0' ||
+             substr(liittymispvm, 1, 1) || ' 00:00:00';
+
+UPDATE Viestiketju
+SET pvm = substr(pvm, 4, 4) || '-' ||
+             substr(pvm, 2, 2) || '-0' ||
+             substr(pvm, 1, 1) || ' 00:00:00';
+
+// Viesti timestamp update muotoon -> YYYY-MM-DD HH:MM:SS
+UPDATE Viesti2
+SET aika = substr(aika, 1, 4) || '-' ||
+             substr(aika, 5, 2) || '-' ||
+             substr(aika, 7, 2) || ' ' ||
+             substr(aika, 9, 2) || ':' ||
+             substr(aika, 11, 2) || ':00' ||
+
+
+
+             
