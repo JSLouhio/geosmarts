@@ -5,6 +5,7 @@ import java.util.*;
 public class Viestiketju {
 
     private int id;
+    private int alueID;
     private String aihe;
     private Date pvm;  //aloituspvm vai viimeisin viesti??
     private ArrayList<Viesti> viestit;

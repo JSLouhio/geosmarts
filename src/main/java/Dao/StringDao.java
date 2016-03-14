@@ -84,6 +84,7 @@ public class StringDao implements Dao<String, Integer> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    // muutettava siten, että konstruktoriksi viestiketju.alue_id, nyt hakee aina aluetta 2.
     public ArrayList<String> viestiketjut() throws SQLException {
 
         this.db.connect();
@@ -91,7 +92,7 @@ public class StringDao implements Dao<String, Integer> {
                 + "FROM viestiketju, viesti, alue\n"
                 + "WHERE viestiketju.id_viestiketju = viesti.viestiketju_id\n"
                 + "AND alue.id_alue = viestiketju.alue_id\n"
-                + "AND viestiketju.alue_id = 2\n"
+                + "AND viestiketju.alue_id = 1\n"
                 + "GROUP BY viestiketju.aihe");
 
         ResultSet rs = stmt.executeQuery();
@@ -124,6 +125,47 @@ public class StringDao implements Dao<String, Integer> {
         this.db.disconnect();
 
         return viestiketjut;
+    }
+
+    //tähän myös parametreihin vkn ID!! (Nyt 3.)
+    public ArrayList<String> viestit() throws SQLException {
+
+        this.db.connect();
+        PreparedStatement stmt = this.db.getConnection().prepareStatement("SELECT Kayttaja.nimimerkki, Viesti.sisalto, Viesti.aika FROM viesti\n"
+                + "Inner join Kayttaja on viesti.lahettaja_id=Kayttaja.id_kayttaja\n"
+                + " where Viesti.viestiketju_id=3\n"
+                + " order by Viesti.aika");
+
+        ResultSet rs = stmt.executeQuery();
+        ArrayList<String> viestit = new ArrayList<>();
+
+        String nimim = "";
+        String sisalto = "";
+        String ajat = "";
+
+        while (rs.next()) {
+
+            nimim = nimim + rs.getString(1) + ",";
+            sisalto = sisalto + rs.getString(2) + ",";
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            if (rs.getTimestamp(3) == null) {
+                ajat = ajat + "0000-00-00 00:00:00" + ",";
+            } else {
+
+                ajat = ajat + dateFormat.format(rs.getTimestamp(3)) + ",";
+
+            }
+        }
+        viestit.add(nimim);
+        viestit.add(sisalto);
+        viestit.add(ajat);
+
+        rs.close();
+        stmt.close();
+        this.db.disconnect();
+
+        return viestit;
     }
 
 }

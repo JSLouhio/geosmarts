@@ -52,10 +52,10 @@ public class Main {
         
         ArrayList<Olio> Aluelista = spliz(sd.AlueetYhtAika());
         ArrayList<Olio> ketjulista = spliz(sd.viestiketjut());
+        ArrayList<Olio> viestilista = spliz(sd.viestit());
         
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
-            
             map.put("aa", Aluelista);
             
             return new ModelAndView(map, "index2");
@@ -65,8 +65,19 @@ public class Main {
             HashMap map = new HashMap<>();
             
             map.put("bb", ketjulista);
+            map.put("aa", Aluelista);
             
             return new ModelAndView(map, "Viestiketju");
+        }, new ThymeleafTemplateEngine());
+        
+           get("/2", (req, res) -> {
+            HashMap map = new HashMap<>();
+            
+            map.put("bb", ketjulista);
+            map.put("aa", Aluelista);
+            map.put("cc", viestilista);
+            
+            return new ModelAndView(map, "Viestit");
         }, new ThymeleafTemplateEngine());
         
     }
@@ -90,6 +101,8 @@ public class Main {
 //        System.out.println("alueet: " + ac);
 //        System.out.println("viestit: " + vc);
 //        System.out.println("päivöt: " + pc);
+        
+        
         ArrayList<Olio> lista = new ArrayList();
         
         int i = 0;
@@ -97,6 +110,8 @@ public class Main {
             Olio o = new Olio();
             o.setNimi(ac.get(i));
             o.setAihe(ac.get(i));
+            o.setNimim(ac.get(i));
+            o.setSisalto(vc.get(i));
             o.setViestit(vc.get(i));
             o.setPvm(pc.get(i));
             i++;

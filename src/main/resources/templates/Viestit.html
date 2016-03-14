@@ -1,9 +1,10 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Geosmarts.com</title>
+        <title>Geosmarts.com - Ketju</title>
         <meta charset="utf-8" />
     </head>
+
     <body>
         <style>
             ul#menu li {
@@ -17,11 +18,8 @@
             ul#menu li:hover {
                 background-color: goldenrod;
             }
-
             ul#menu2 li {
-
                 text-align: left;
-
                 background-color: white;
                 color: black;
                 padding: 10px 20px;
@@ -31,6 +29,7 @@
             ul#menu2 li:hover {
                 background-color: orange;
             }
+
             .relative {
                 position: relative;
                 width: 600px;
@@ -48,33 +47,30 @@
                 margin-left:400px;
                 right: 0px;
             }
-
-
         </style>
         <table>
             <tr >
-                <td colspan="1"><img src="http://www.auplod.com/u/ulaopd76ab9.png" alt="Geosmarts"></img>
+                <td colspan="3"><img src="http://www.auplod.com/u/ulaopd76ab9.png" alt="Geosmarts"></img>
                 </td>
             </tr>
             <tr>
-                <td> Click <a href="/">here</a> to go to refresh
+                <td> Click <a href="/1">here</a> to go back
                 </td>
             </tr>
-       
             <tr>
                 <td colspan="1"> <ul  id="menu2" style="list-style-type:none">
-                        <li><h2>Alueet</h2></li>
-                        <li  th:each="Olio: ${aa}">
-                            <a href="/1"><span th:text="${Olio.nimi}" >Alue</span></a></li>
+                        <li><h2>Alue: Aseet -> What is your favorite weapon?</h2></li>
+                        <li  th:each="Olio: ${cc}">
+                            <span th:text="${Olio.nimim}">Kayttaja</span></li>
                     </ul> </td> 
                 <td colspan="1"><ul  id="menu2" style="list-style-type:none ">
-                        <li><h2>Viestit</h2></li>
-                        <li th:each="Olio: ${aa}">
-                            <span  th:text="${Olio.viestit}">Viestit</span> </li>
+                        <li><h2>Viesti</h2></li>
+                        <li th:each="Olio: ${cc}">
+                            <span  th:text="${Olio.sisalto}">sisalto</span> </li>
                     </ul> </td> 
                 <td colspan="1"><ul  id="menu2" style="list-style-type:none ">
-                        <li><h2>Viimeisin viesti</h2> </li>
-                        <li th:each="Olio: ${aa}">
+                        <li><h2>Viimeisin viesti</h2></li>
+                        <li th:each="Olio: ${cc}">
                             <span  th:text="${Olio.pvm}">pvm</span> </li>
                     </ul> </td>
             </tr>
@@ -90,12 +86,16 @@
                 solu2.innerHTML = "0";
                 solu3.innerHTML = "1985-01-02";
             }
+
+
         </script>
         <iframe name="aabel" style="display:none;"></iframe>
-        <form method="POST" action="/" target="aabel">
-            Uusi Alue:<br/>
-            <input type="text" name="Uusi keskustelualue:"/><br/>
-            <input type="submit" value="Lisaa Keskustelualue" onclick="lisaakeskustelu(sana)"/>
+        <form method="POST" action="/1" target="aabel">
+            Lisaa Viesti:<br/>
+            <input type="textarea" name="viesti"/><br/>
+            Kayttaja:<br/>
+            <input type="textarea" name="Kayttaja"/><br/>
+            <input type="submit" value="laheta" onclick="lisaakeskustelu(sana)"/>
             <input type="hidden" name="ad_id" value="2"/>
         </form>
     </body>
