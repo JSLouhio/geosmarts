@@ -37,7 +37,7 @@ CREATE TABLE Viesti2 (
 	lahettaja_id integer NOT NULL,
 	viestiketju_id integer NOT NULL,
 	sisalto text,
-	pvm DATE DEFAULT (strftime('%Y%m%d%H%M%S', 'now', 'localtime')),
+	aika DATE DEFAULT (strftime('%Y%m%d%H%M%S', 'now', 'localtime')),
 	FOREIGN KEY(lahettaja_id) REFERENCES Kayttaja(id_kayttaja),
 	FOREIGN KEY(viestiketju_id) REFERENCES Viestiketju(id_viestiketju)
 );
@@ -74,4 +74,7 @@ INSERT INTO Kayttaja3 SELECT id_kayttaja, nimimerkki, salasana, status FROM Kayt
 aika DATE DEFAULT (strftime('%Y%m%d%H%M%S', 'now', 'localtime')),
 
 
-insert into Viesti3 (lahettaja_id, viestiketju_id, sisalto) VALUES (1, 2, 'lol'); 
+insert into Viesti3 (lahettaja_id, viestiketju_id, sisalto) VALUES (1, 2, 'lol');
+
+insert into Viesti2 (lahettaja_id, viestiketju_id, sisalto, aika) SELECT lahettaja_id, viestiketju_id, sisalto, pvm FROM Viestio;
+
