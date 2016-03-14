@@ -3,6 +3,7 @@ package geosmarts.geosmarts;
 public class Olio {
 
     private String nimi;
+    private String id;
     private String viestit;
     private String pvm;
     private String aihe;
@@ -17,6 +18,14 @@ public class Olio {
         this.nimi = n;
     }
 
+    public void setId(String id){
+        this.id=id;
+    }
+    
+    public String getId(){
+        return this.id;
+    }
+    
     public void setViestit(String n) {
         this.viestit = n;
     }

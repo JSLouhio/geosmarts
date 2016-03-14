@@ -54,6 +54,7 @@
         <table>
             <tr >
                 <td colspan="1"><img src="http://www.auplod.com/u/ulaopd76ab9.png" alt="Geosmarts"></img>
+                <!--<td colspan="1"><img src="~/gs_otsikko.png" alt="Geosmarts" style="width:423px;height:88px;" ></img>-->
                 </td>
             </tr>
             <tr>
@@ -65,7 +66,7 @@
                 <td colspan="1"> <ul  id="menu2" style="list-style-type:none">
                         <li><h2>Alueet</h2></li>
                         <li  th:each="Olio: ${aa}">
-                            <a href="/1"><span th:text="${Olio.nimi}" >Alue</span></a></li>
+                            <a href="${Olio.nimi}"><span th:text="${Olio.nimi}" >Alue</span></a></li>
                     </ul> </td> 
                 <td colspan="1"><ul  id="menu2" style="list-style-type:none ">
                         <li><h2>Viestit</h2></li>

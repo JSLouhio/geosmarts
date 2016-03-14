@@ -88,6 +88,7 @@ public class Main {
         String alpha = aaa.get(0);
         String bravo = aaa.get(1);
         String carlos = aaa.get(2);
+        String delta = aaa.get(3);
         
         String[] alueet = alpha.split(",");
         List<String> ac = Arrays.asList(alueet);
@@ -98,6 +99,11 @@ public class Main {
         String[] paivays = carlos.split(",");
         List<String> pc = Arrays.asList(paivays);
 
+        String[] idet = delta.split(",");
+        List<String> ic = Arrays.asList(idet);
+
+        
+        
 //        System.out.println("alueet: " + ac);
 //        System.out.println("viestit: " + vc);
 //        System.out.println("päivöt: " + pc);
@@ -114,6 +120,7 @@ public class Main {
             o.setSisalto(vc.get(i));
             o.setViestit(vc.get(i));
             o.setPvm(pc.get(i));
+            o.setId(ic.get(i));
             i++;
             lista.add(o);
         }
