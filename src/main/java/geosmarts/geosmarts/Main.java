@@ -58,7 +58,7 @@ public class Main {
             
             map.put("aa", Aluelista);
             
-            return new ModelAndView(map, "index");
+            return new ModelAndView(map, "index2");
         }, new ThymeleafTemplateEngine());
         
         get("/1", (req, res) -> {
