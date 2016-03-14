@@ -25,3 +25,7 @@ https://drive.google.com/file/d/0Byg-foi3rAA7SXo2NlhzWnhvNkk/view?usp=sharing
 
 13.3.2016 [Juuso]
   - Tietokantaulujen date-formaatti ja NOT NULL arvot päivitetty. Liitteennä tekstitiedosto jossa ohjeet tietokantataulumuutoksiin.
+
+13.3.2016 [Juri]:
+  - Hieman uudistuksia päivitetty, uus versio uutena Branch:na. Vielä on aika paljon hommaa edessä, mutta uskoisin että      
+    html-puoli alkaa pikkuhiljaa sujua.
