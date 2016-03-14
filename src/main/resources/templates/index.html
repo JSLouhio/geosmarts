@@ -1,0 +1,70 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Geosmarts.com</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <img src="http://www.auplod.com/u/ulaopd76ab9.png" alt="Geosmarts"></img>
+        
+        
+      
+        <table id="Aluetable" style= "width:50%">
+            
+            
+            <tr>
+                <td><h2> Alue</h2></td>
+                 
+                <td><h2>Viesteja yhteensa</h2></td> 
+                <td><h2>Viimeisin viesti</h2></td>
+            </tr>
+            <tr th:each="Olio: ${aa}">
+                <td th:text="${Olio.nimi}"> </td> 
+                <td th:text="${Olio.viestit}"></td>
+                <td th:text="${Olio.pvm}"></td>
+            </tr>
+        </table>
+        <!--        <table id="Aluetable" style="width:50%">
+        
+                    <tr>
+                        <td><h2>Alue</h2></td>
+                        <td><h2>Viesteja yhteensa</h2></td> 
+                        <td><h2>Viimeisin viesti</h2></td>
+                    </tr>
+                    <tr>
+                        <td th:text="${ida}">rivi1 solu1</td>
+                        <td th:text="${idb}">rivi1 solu2</td> 
+                        <td th:text="${idc}">rivi1 solu3</td>
+                    </tr>
+                    <tr>
+                        <td th:text="${idd}">rivi2 solu1</td>
+                        <td th:text="${ide}">rivi2 solu2</td> 
+                        <td th:text="${idf}">rivi2 solu3</td>
+                    </tr>
+                    <tr>
+                        <td th:text="${idg}">rivi3 solu1</td>
+                        <td th:text="${idh}">rivi3 solu2</td> 
+                        <td th:text="${idi}">rivi3 solu3</td>
+                    </tr>   
+                </table>-->
+        <script>
+            function lisaakeskustelu(nimi) {
+                var table = document.getElementById("Aluetable");
+                var row = table.insertRow(1);
+                var solu1 = row.insertCell(0);
+                var solu2 = row.insertCell(1);
+                var solu3 = row.insertCell(2);
+                solu1.innerHTML = nimi;
+                solu2.innerHTML = "0";
+                solu3.innerHTML = "1985-01-02";
+            }
+        </script>
+        <iframe name="aabel" style="display:none;"></iframe>
+        <form method="POST" action="/" target="aabel">
+            Alue:<br/>
+            <input type="text" name="keskustelualue"/><br/>
+            <input type="submit" value="Lisaa Keskustelualue" onclick="lisaakeskustelu(sana)"/>
+            <input type="hidden" name="ad_id" value="2"/>
+        </form>
+    </body>
+</html>

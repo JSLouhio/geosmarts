@@ -1,0 +1,32 @@
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE Alue (
+	id_alue integer PRIMARY KEY,
+	nimi varchar(100) NOT NULL UNIQUE
+);	
+
+CREATE TABLE Viestiketju (
+	id_viestiketju integer PRIMARY KEY,
+	aihe text NOT NULL UNIQUE,
+	pvm date NOT NULL,
+	alue_id integer NOT NULL,
+	FOREIGN KEY(alue_id) REFERENCES Alue(id_alue)
+);
+		
+CREATE TABLE Kayttaja (
+	id_kayttaja integer PRIMARY KEY,
+	nimimerkki varchar(80) NOT NULL UNIQUE,
+	salasana varchar(50) NOT NULL,
+	liittymispvm date NOT NULL,
+	status boolean NOT NULL,
+);
+
+CREATE TABLE Viesti (
+	id_viesti integer PRIMARY KEY,
+	lahettaja_id integer NOT NULL,
+	viestiketju_id integer NOT NULL,
+	sisalto text,
+	aika timestamp,
+	FOREIGN KEY(lahettaja_id) REFERENCES Kayttaja(id_kayttaja),
+	FOREIGN KEY(viestiketju_id) REFERENCES Viestiketju(id_viestiketju)
+);	 
