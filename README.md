@@ -32,3 +32,4 @@ https://drive.google.com/file/d/0Byg-foi3rAA7SXo2NlhzWnhvNkk/view?usp=sharing
   - ilmeisesti myös tossa uusVersio -branchissa database corruptoitunut (ottakaa .db main-branchista).
 
 
+Tänne syntyy keskustelualue
