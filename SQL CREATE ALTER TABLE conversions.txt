@@ -1,13 +1,13 @@
-//Muutto vanhoista tauluista sisältöineen uusiin eri constrainteilla.  (eli default date ja ei NOT NULL)
+//Muutto vanhoista tauluista sisï¿½ltï¿½ineen uusiin eri constrainteilla.  (eli default date ja ei NOT NULL)
 
 Vaiheet: 
 1. Luo uudet taulut halutuilla muutoksilla schemaan. Uusien taulujen nimi on <taulu>2. CREATE TABLE
-2. Kopio sisältö <taulu> -> <taulu>2 INSERT INTO
+2. Kopio sisï¿½ltï¿½ <taulu> -> <taulu>2 INSERT INTO
 3. Tuhoa vanhat taulut <taulu>. DROP TABLE
-4. Nimeä uudet taulut vanhoiksi tauluiksi. <taulu>2 -> <taulu> ALTER TABLE RENAME TO
+4. Nimeï¿½ uudet taulut vanhoiksi tauluiksi. <taulu>2 -> <taulu> ALTER TABLE RENAME TO
 5. Valmis.  
 
-Alla komennot SQLite yhdessä pumaskassa:
+Alla komennot SQLite yhdessï¿½ pumaskassa:
 
 PRAGMA foreign_keys = ON;
 
@@ -75,3 +75,44 @@ aika DATE DEFAULT (strftime('%Y%m%d%H%M%S', 'now', 'localtime')),
 
 
 insert into Viesti3 (lahettaja_id, viestiketju_id, sisalto) VALUES (1, 2, 'lol'); 
+	aika DATE DEFAULT (strftime('%Y%m%d%H%M%S', 'now', 'localtime')),
+	FOREIGN KEY(lahettaja_id) REFERENCES Kayttaja(id_kayttaja),
+	FOREIGN KEY(viestiketju_id) REFERENCES Viestiketju(id_viestiketju)
+);
+	
+INSERT INTO Kayttaja2 SELECT * FROM Kayttaja;
+INSERT INTO Alue2 SELECT * FROM Alue;
+INSERT INTO Viestiketju2 SELECT * FROM Viestiketju;
+INSERT INTO Viesti2 SELECT * FROM Viesti;
+
+DROP TABLE Kayttaja;
+DROP TABLE Alue;
+DROP TABLE Viestiketju;
+DROP TABLE Viesti;
+
+ALTER TABLE Kayttaja2 RENAME TO Kayttaja;
+ALTER TABLE Alue2 RENAME TO Alue;
+ALTER TABLE Viestiketju2 RENAME TO Viestiketju;
+ALTER TABLE Viesti2 RENAME TO Viesti;
+
+//Muutoksia ja sekalaisia SQL muistiinpanoja
+
+strftime('%Y%m%d%H%M', 'now');
+
+date DEFAULT (datetime('now','localtime'))
+
+CREATE TABLE test (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  a integer,
+  t DATETIME DEFAULT (datetime('now','localtime'))
+);
+
+INSERT INTO Kayttaja3 SELECT id_kayttaja, nimimerkki, salasana, status FROM Kayttaja;
+
+aika DATE DEFAULT (strftime('%Y%m%d%H%M%S', 'now', 'localtime')),
+
+
+insert into Viesti3 (lahettaja_id, viestiketju_id, sisalto) VALUES (1, 2, 'lol');
+
+insert into Viesti2 (lahettaja_id, viestiketju_id, sisalto, aika) SELECT lahettaja_id, viestiketju_id, sisalto, pvm FROM Viestio;
+
