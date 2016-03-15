@@ -53,6 +53,7 @@ public class Main {
         ArrayList<Olio> Aluelista = spliz(sd.AlueetYhtAika());
         ArrayList<Olio> ketjulista = spliz(sd.viestiketjut());
         ArrayList<Olio> viestilista = spliz(sd.viestit());
+      
         
         get("/", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -78,6 +79,17 @@ public class Main {
             map.put("cc", viestilista);
             
             return new ModelAndView(map, "Viestit");
+        }, new ThymeleafTemplateEngine());
+           
+           get("/ketju/:numero", (req, res) -> {
+            HashMap map = new HashMap<>();
+            int viestiketjunTunnus = Integer.parseInt(req.params(":numero"));
+           
+            Alue alue = ad.findOne(viestiketjunTunnus);
+            map.put("bb", ketjulista);
+            map.put("alue", alue);
+           
+            return new ModelAndView(map, "Viestiketju");
         }, new ThymeleafTemplateEngine());
         
     }

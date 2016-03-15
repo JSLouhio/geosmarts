@@ -4,78 +4,30 @@
         <title>Geosmarts.com - Viestiketjut</title>
         <meta charset="utf-8" />
     </head>
-
     <body>
-        <style>
-            ul#menu li {
-                display:inline;
-                background-color: white;
-                color: black;
-                padding: 10px 20px;
-                text-decoration: none;
-                border-radius: 4px 4px 0 0;
-            }
-            ul#menu li:hover {
-                background-color: goldenrod;
-            }
-            ul#menu2 li {
-                text-align: left;
-                background-color: white;
-                color: black;
-                padding: 10px 20px;
-                text-decoration: none;
-                border-radius: 4px 4px 4px 4px;
-            }
-            ul#menu2 li:hover {
-                background-color: orange;
-            }
-
-            .relative {
-                position: relative;
-                width: 600px;
-                height: 400px;
-            }
-            .absolute {
-                position: absolute;
-                top: 0px;
-                margin-left:200px;
-                right: 0px;
-            }
-            .absolute2 {
-                position: absolute;
-                top: 0px;
-                margin-left:400px;
-                right: 0px;
-            }
-        </style>
-        <table>
-            <tr >
-                <td colspan="3"><img src="http://www.auplod.com/u/ulaopd76ab9.png" alt="Geosmarts"></img>
-                </td>
-            </tr>
+        <img src="http://www.auplod.com/u/ulaopd76ab9.png" alt="Geosmarts"></img>
+       
+        <h1 th:text="${alue.nimi}">testi</h1>
+       
+        <table id="Aluetable" style= "width:50%">
             <tr>
-                <td> Click <a href="/">here</a> to go back
-                </td>
+                <td><h2>Alue: + [Alueen nimi tahan]</h2></td>
+                <td><h2>Viesteja yhteensa</h2></td>
+                <td><h2>Viimeisin viesti</h2></td>
             </tr>
-            <tr>
-                <td colspan="1"> <ul  id="menu2" style="list-style-type:none">
-                        <li >
-                            <h2>Alue: Aseet</h2></li>
-                        <li  th:each="Olio: ${bb}">
-                            <a href="/2"><span th:text="${Olio.aihe}" >Alue</span></a></li>
-                    </ul> </td> 
-                <td colspan="1"><ul  id="menu2" style="list-style-type:none ">
-                        <li><h2>Viesteja yhteensa</h2></li>
-                        <li th:each="Olio: ${bb}">
-                            <span  th:text="${Olio.viestit}">Viestit</span> </li>
-                    </ul> </td> 
-                <td colspan="1"><ul  id="menu2" style="list-style-type:none ">
-                        <li><h2>Viimeisin viesti</h2></li>
-                        <li th:each="Olio: ${bb}">
-                            <span  th:text="${Olio.pvm}">pvm</span> </li>
-                    </ul> </td>
+            <tr th:each="Olio: ${bb}">
+                <td th:text="${Olio.aihe}"></td>
+                <td th:text="${Olio.viestit}"></td>
+                <td th:text="${Olio.pvm}"></td>
             </tr>
-        </table> 
+        </table>
+       
+        <!--
+        th:href="@{~/jotain/{id}(id=${olio.id})}
+ 
+ 
+        -->
+       
         <script>
             function lisaakeskustelu(nimi) {
                 var table = document.getElementById("Aluetable");
@@ -87,14 +39,16 @@
                 solu2.innerHTML = "0";
                 solu3.innerHTML = "1985-01-02";
             }
-
-
+ 
+ 
         </script>
+ 
+ 
         <iframe name="aabel" style="display:none;"></iframe>
         <form method="POST" action="/1" target="aabel">
-            Uusi Viestiketju:<br/>
+            Alue:<br/>
             <input type="text" name="keskustelualue"/><br/>
-            <input type="submit" value="Lisaa Viestiketju" onclick="lisaakeskustelu(sana)"/>
+            <input type="submit" value="Lisaa Keskustelualue" onclick="lisaakeskustelu(sana)"/>
             <input type="hidden" name="ad_id" value="2"/>
         </form>
     </body>

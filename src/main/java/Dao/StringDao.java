@@ -52,7 +52,7 @@ public class StringDao implements Dao<String, Integer> {
         String alueet = "";
         String viestit = "";
         String ajat = "";
-        String id ="";
+        String id = "";
 
         while (rs.next()) {
 
@@ -65,9 +65,9 @@ public class StringDao implements Dao<String, Integer> {
             } else {
                 ajat = ajat + dateFormat.format(rs.getTimestamp(3)) + ",";
             }
-        
-            id=id+String.valueOf(rs.getInt(4));
-        
+
+            id = id + String.valueOf(rs.getInt(4) + ",");
+
         }
         alueetYhteensaJaAika.add(alueet);
         alueetYhteensaJaAika.add(viestit);
@@ -91,12 +91,12 @@ public class StringDao implements Dao<String, Integer> {
     public ArrayList<String> viestiketjut() throws SQLException {
 
         this.db.connect();
-        PreparedStatement stmt = this.db.getConnection().prepareStatement("SELECT viestiketju.aihe AS Viestiketju, COUNT(*) AS Viestejä_yhteensä, viesti.aika AS Viimeisin_viesti, viestiketju.id_viestiketju\n" +
-"                FROM viestiketju, viesti, alue\n" +
-"                WHERE viestiketju.id_viestiketju = viesti.viestiketju_id\n" +
-"                AND alue.id_alue = viestiketju.alue_id\n" +
-"                AND viestiketju.alue_id = 1\n" +
-"                GROUP BY viestiketju.aihe");
+        PreparedStatement stmt = this.db.getConnection().prepareStatement("SELECT viestiketju.aihe AS Viestiketju, COUNT(*) AS Viestejä_yhteensä, viesti.aika AS Viimeisin_viesti, viestiketju.id_viestiketju\n"
+                + "                FROM viestiketju, viesti, alue\n"
+                + "                WHERE viestiketju.id_viestiketju = viesti.viestiketju_id\n"
+                + "                AND alue.id_alue = viestiketju.alue_id\n"
+                + "                AND viestiketju.alue_id = 1\n"
+                + "                GROUP BY viestiketju.aihe");
 
         ResultSet rs = stmt.executeQuery();
         ArrayList<String> viestiketjut = new ArrayList<>();
@@ -119,9 +119,9 @@ public class StringDao implements Dao<String, Integer> {
                 ajat = ajat + dateFormat.format(rs.getTimestamp(3)) + ",";
 
             }
-        
-            id = id+ String.valueOf(rs.getInt(4));
-        
+
+            id = id + String.valueOf(rs.getInt(4)+",");
+
         }
         viestiketjut.add(viestiketj);
         viestiketjut.add(viestit);
@@ -151,7 +151,7 @@ public class StringDao implements Dao<String, Integer> {
         String sisalto = "";
         String ajat = "";
         String id = "";
-        
+
         while (rs.next()) {
 
             nimim = nimim + rs.getString(1) + ",";
@@ -165,14 +165,14 @@ public class StringDao implements Dao<String, Integer> {
                 ajat = ajat + dateFormat.format(rs.getTimestamp(3)) + ",";
 
             }
-            id = id + String.valueOf(rs.getInt(4));
+            id = id + String.valueOf(rs.getInt(4)+",");
         }
-        
+
         viestit.add(nimim);
         viestit.add(sisalto);
         viestit.add(ajat);
         viestit.add(id);
-        
+
         rs.close();
         stmt.close();
         this.db.disconnect();
