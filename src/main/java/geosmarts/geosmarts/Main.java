@@ -49,6 +49,7 @@ public class Main {
         Database db = new Database();
         AlueDao ad = new AlueDao(db);
         StringDao sd = new StringDao(db);
+        ViestiketjuDao vd = new ViestiketjuDao(db);
         
         ArrayList<Olio> Aluelista = spliz(sd.AlueetYhtAika());
         ArrayList<Olio> ketjulista = spliz(sd.viestiketjut());
@@ -86,9 +87,12 @@ public class Main {
             int viestiketjunTunnus = Integer.parseInt(req.params(":numero"));
            
             Alue alue = ad.findOne(viestiketjunTunnus);
+            List<Viestiketju> vk = vd.BallIn(viestiketjunTunnus);
+               System.out.println("aaaAAaaaaaaaaaaaaaaaaaaaa: "+vd.BallIn(viestiketjunTunnus));
             map.put("bb", ketjulista);
             map.put("alue", alue);
-           
+            map.put("viestiketju", vk);
+            
             return new ModelAndView(map, "Viestiketju");
         }, new ThymeleafTemplateEngine());
         

@@ -22,7 +22,7 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
     @Override
     public Viestiketju findOne(Integer key) throws SQLException {
         this.db.connect();
-        PreparedStatement stmt = this.db.getConnection().prepareStatement("SELECT * FROM Viestiketju WHERE id = ?");
+        PreparedStatement stmt = this.db.getConnection().prepareStatement("SELECT * FROM Viestiketju WHERE alue_id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -31,11 +31,12 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
             return null;
         }
 
-        int id = rs.getInt("Id");
+        int id = rs.getInt("id_viestiketju");
         String aihe = rs.getString("Aihe");
-        Date aika = rs.getDate("aika");
+        Date aika = rs.getDate("pvm");
+        int idAlue = rs.getInt("alue_id");
 
-        Viestiketju v = new Viestiketju(id, aihe, aika);
+        Viestiketju v = new Viestiketju(id, aihe, aika, idAlue);
 
         rs.close();
 
@@ -73,36 +74,32 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
         return viestiketjut;
     }
 
-    @Override
-    public List<Viestiketju> AllIn(Collection<Integer> keys) throws SQLException {
-        if (keys.isEmpty()) {
-            return new ArrayList<>();
-        }
+    public List<Viestiketju> BallIn(Integer key) throws SQLException {
+        
 
-        StringBuilder muuttujat = new StringBuilder("?");
-        for (int i = 1; i < keys.size(); i++) {
-            muuttujat.append(", ?");
-        }
 
         this.db.connect();
         Connection connection = this.db.getConnection();
         String jotain = "";     //toinen taulu, josta haetaan
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viestiketju WHERE " + jotain + " IN (" + muuttujat + ")");
-        int laskuri = 1;
-        for (int key : keys) {
-            stmt.setObject(laskuri, key);
-            laskuri++;
-        }
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viestiketju WHERE alue_id = ?");
+        stmt.setObject(1, key);
+
+//        int laskuri = 1;
+//        for (int key : keys) {
+//            stmt.setObject(laskuri, key);
+//            laskuri++;
+//        }
 
         ResultSet rs = stmt.executeQuery();
         List<Viestiketju> viestiketjut = new ArrayList<>();
 
         while (rs.next()) {
-            int id = rs.getInt("Id");
-            String aihe = rs.getString("Aihe");
-            Date aika = rs.getDate("aika");
+            int id = rs.getInt("id_viestiketju");
+            String aihe = rs.getString("aihe");
+            Date aika = rs.getDate("pvm");
+            int idAlue = rs.getInt("alue_id");
 
-            Viestiketju v = new Viestiketju(id, aihe, aika);
+            Viestiketju v = new Viestiketju(id, aihe, aika, idAlue);
             viestiketjut.add(v);
             this.db.lisaaViestiketju(v);
         }
@@ -143,6 +140,11 @@ public class ViestiketjuDao implements Dao<Viestiketju, Integer> {
                 + (lisattava)
                 + "');";
         db.update(sql);
+    }
+
+    @Override
+    public List<Viestiketju> AllIn(Collection<Integer> keys) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

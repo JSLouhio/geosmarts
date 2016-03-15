@@ -10,13 +10,21 @@ public class Viestiketju {
     private Date pvm;  //aloituspvm vai viimeisin viesti??
     private ArrayList<Viesti> viestit;
 
-    public Viestiketju(int id, String a, Date d) {
+    public Viestiketju(int id, String a, Date d, int aid) {
+        this.id = id;
+        this.aihe = a;
+        this.pvm = d;
+        this.alueID=aid;
+        this.viestit = new ArrayList();
+    }
+
+     public Viestiketju(int id, String a, Date d) {
         this.id = id;
         this.aihe = a;
         this.pvm = d;
         this.viestit = new ArrayList();
     }
-
+    
     public Viestiketju(String aihe) {
         this.aihe = aihe;
         this.viestit = new ArrayList();
@@ -50,6 +58,10 @@ public class Viestiketju {
         return this.id;
     }
 
+    public int getAlueID(){
+        return this.alueID;
+    }
+    
     public String getAihe() {
         return this.aihe;
     }
@@ -61,4 +73,9 @@ public class Viestiketju {
     public ArrayList<Viesti> getViestit() {
         return this.viestit;
     }
+    
+    public int getNumero(){
+        return this.viestit.size();
+    }
+
 }

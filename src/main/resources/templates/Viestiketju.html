@@ -7,18 +7,18 @@
     <body>
         <img src="http://www.auplod.com/u/ulaopd76ab9.png" alt="Geosmarts"></img>
        
-        <h1 th:text="${alue.nimi}">testi</h1>
+        <!--<h1 th:text="${alue.nimi}">testi</h1>-->
        
         <table id="Aluetable" style= "width:50%">
             <tr>
-                <td><h2>Alue: + [Alueen nimi tahan]</h2></td>
-                <td><h2>Viesteja yhteensa</h2></td>
-                <td><h2>Viimeisin viesti</h2></td>
+                <td><h2>Alue: <b th:text="${alue.nimi}"></b></h2></td>
+                <td><h2> </h2><h2>Viesteja yhteensa</h2></td>
+                <td><h2> </h2><h2>Viimeisin viesti</h2></td>
             </tr>
-            <tr th:each="Olio: ${bb}">
-                <td th:text="${Olio.aihe}"></td>
-                <td th:text="${Olio.viestit}"></td>
-                <td th:text="${Olio.pvm}"></td>
+            <tr th:each="ketju: ${viestiketju}">
+                <td th:text="${ketju.aihe}"></td>
+                <td th:text="${ketju.numero}"></td>
+                <td th:text="${ketju.pvm}"></td>
             </tr>
         </table>
        
