@@ -1,2 +1,1 @@
-web:    java -cp target/classes:target/dependency/* geosmarts.Main
-.java
+web:    java -cp target/classes:target/dependency/* geosmarts.geosmarts.Main
