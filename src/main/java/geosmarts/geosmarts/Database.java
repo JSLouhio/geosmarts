@@ -24,8 +24,15 @@ public class Database<T> {
     }
 
     public void connect() throws SQLException {
+        
+        // käytetään oletuksena paikallista sqlite-tietokantaa
+        String jdbcOsoite = "jdbc:sqlite:geosmarts.db";
+        // jos heroku antaa käyttöömme tietokantaosoitteen, otetaan se käyttöön
+        if (System.getenv("DATABASE_URL") != null) {
+            jdbcOsoite = System.getenv("DATABASE_URL");
+        } 
         String nimi = "geosmarts";    //<- tähän tietokannan nimi (eli varmaan jotain tyyliin "geosmarts")
-        this.connection = DriverManager.getConnection("jdbc:sqlite:" + nimi + ".db");
+        this.connection = DriverManager.getConnection(jdbcOsoite);
         this.stmt = this.connection.createStatement();
     }
 
