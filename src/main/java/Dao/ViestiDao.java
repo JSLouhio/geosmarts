@@ -23,7 +23,11 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     @Override
     public Viesti findOne(Integer key) throws SQLException {
         this.db.connect();
-        PreparedStatement stmt = this.db.getConnection().prepareStatement("SELECT * FROM Viesti WHERE id = ?");
+        PreparedStatement stmt = this.db.getConnection().prepareStatement("SELECT * FROM Viesti \n" +
+"                inner join kayttaja on viesti.lahettaja_id = kayttaja.id_kayttaja\n" +
+"                inner join viestiketju on viesti.viestiketju_id = viestiketju.id_viestiketju\n" +
+"                inner join alue on viestiketju.alue_id = alue.id_alue\n" +
+"                WHERE viesti.viestiketju_id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -32,13 +36,17 @@ public class ViestiDao implements Dao<Viesti, Integer> {
             return null;
         }
 
-        int id = rs.getInt("Id");
-        int kayttajaId = rs.getInt("KayttajaId");
-        int viestiketjuId = rs.getInt("ViestiketjuId");
-        String sisalto = rs.getString("Sisalto");
+        int id = rs.getInt("id_viesti");
+        String sisalto = rs.getString("sisalto");
         Date aika = rs.getDate("aika");
+        int idAlue = rs.getInt("viestiketju_id");
+        int kid = rs.getInt("lahettaja_id");
+        String nimimerkki = rs.getString("nimimerkki");
+        String aihe = rs.getString("aihe");
+        String an = rs.getString("nimi");
+        Viesti v = new Viesti(id, kid, idAlue, sisalto, aika, nimimerkki, aihe,an);
 
-        Viesti v = new Viesti(id, kayttajaId, viestiketjuId, sisalto, aika);
+        this.db.lisaaViesti(v);
 
         rs.close();
 
@@ -150,10 +158,10 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
         this.db.connect();
         Connection connection = this.db.getConnection();
-        String jotain = "";     //toinen taulu, josta haetaan
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viesti \n"
                 + "inner join kayttaja on viesti.lahettaja_id = kayttaja.id_kayttaja\n"
-                + "WHERE viestiketju_id = ?");
+                + "inner join viestiketju on viesti.viestiketju_id = viestiketju.id_viestiketju\n"
+                + "WHERE viesti.viestiketju_id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -161,12 +169,14 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
         while (rs.next()) {
             int id = rs.getInt("id_viesti");
-            String aihe = rs.getString("sisalto");
+            String sisalto = rs.getString("sisalto");
             Date aika = rs.getDate("aika");
             int idAlue = rs.getInt("viestiketju_id");
             int kid = rs.getInt("lahettaja_id");
             String nimi = rs.getString("nimimerkki");
-            Viesti v = new Viesti(id, kid, idAlue, aihe, aika, nimi);
+            String aihe = rs.getString("aihe");
+//            int numero = rs.getInt(aihe)
+            Viesti v = new Viesti(id, kid, idAlue, sisalto, aika, nimi, aihe);
             viestit.add(v);
             this.db.lisaaViesti(v);
         }

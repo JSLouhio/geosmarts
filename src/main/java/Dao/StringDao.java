@@ -1,12 +1,15 @@
 package Dao;
 
 import geosmarts.geosmarts.Database;
+import geosmarts.geosmarts.Tietokantataulut.Viesti;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 public class StringDao implements Dao<String, Integer> {
@@ -120,7 +123,7 @@ public class StringDao implements Dao<String, Integer> {
 
             }
 
-            id = id + String.valueOf(rs.getInt(4)+",");
+            id = id + String.valueOf(rs.getInt(4) + ",");
 
         }
         viestiketjut.add(viestiketj);
@@ -134,50 +137,61 @@ public class StringDao implements Dao<String, Integer> {
 
         return viestiketjut;
     }
+}
 
     //tähän myös parametreihin vkn ID!! (Nyt 3.)
-    public ArrayList<String> viestit() throws SQLException {
-
-        this.db.connect();
-        PreparedStatement stmt = this.db.getConnection().prepareStatement("SELECT Kayttaja.nimimerkki, Viesti.sisalto, Viesti.aika, viesti.id_viesti FROM viesti\n"
-                + "Inner join Kayttaja on viesti.lahettaja_id=Kayttaja.id_kayttaja\n"
-                + " where Viesti.viestiketju_id=3\n"
-                + " order by Viesti.aika");
-
-        ResultSet rs = stmt.executeQuery();
-        ArrayList<String> viestit = new ArrayList<>();
-
-        String nimim = "";
-        String sisalto = "";
-        String ajat = "";
-        String id = "";
-
-        while (rs.next()) {
-
-            nimim = nimim + rs.getString(1) + ",";
-            sisalto = sisalto + rs.getString(2) + ",";
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            if (rs.getTimestamp(3) == null) {
-                ajat = ajat + "0000-00-00 00:00:00" + ",";
-            } else {
-
-                ajat = ajat + dateFormat.format(rs.getTimestamp(3)) + ",";
-
-            }
-            id = id + String.valueOf(rs.getInt(4)+",");
-        }
-
-        viestit.add(nimim);
-        viestit.add(sisalto);
-        viestit.add(ajat);
-        viestit.add(id);
-
-        rs.close();
-        stmt.close();
-        this.db.disconnect();
-
-        return viestit;
-    }
-
-}
+//    public ArrayList<String> viestit() throws SQLException {
+//
+//        this.db.connect();
+//        PreparedStatement stmt = this.db.getConnection().prepareStatement("SELECT viestiketju.aihe, Kayttaja.nimimerkki, Viesti.sisalto, Viesti.aika, viesti.id_viesti FROM viesti\n"
+//                + "                Inner join Kayttaja on viesti.lahettaja_id=Kayttaja.id_kayttaja\n"
+//                + "                inner join viestiketju on viesti.viestiketju_id = viestiketju.id_viestiketju\n"
+//                + "                where Viesti.viestiketju_id=3\n"
+//                + "                 order by Viesti.aika\n"
+//                + "                 ");
+//
+//    
+//        ResultSet rs = stmt.executeQuery();
+//        ArrayList<String> viestit = new ArrayList<>();
+//
+//        String nimim = "";
+//        String aihe = "";
+//        String sisalto = "";
+//        String ajat = "";
+//        String id = "";
+//
+//        while (rs.next()) {
+//
+//            nimim = nimim + rs.getString(1) + ",";
+//            sisalto = sisalto + rs.getString(2) + ",";
+//
+//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            if (rs.getTimestamp(3) == null) {
+//                ajat = ajat + "0000-00-00 00:00:00" + ",";
+//            } else {
+//
+//                ajat = ajat + dateFormat.format(rs.getTimestamp(3)) + ",";
+//
+//            }
+//            id = id + String.valueOf(rs.getInt(4) + ",");
+//
+//            aihe = rs.getString(aihe);
+//
+//        }
+//
+//        viestit.add(nimim);
+//        viestit.add(sisalto);
+//        viestit.add(ajat);
+//        viestit.add(id);
+//        viestit.add(aihe);
+//
+//        rs.close();
+//        stmt.close();
+//        this.db.disconnect();
+//
+//        return viestit;
+//    }
+//
+//    
+//
+//}

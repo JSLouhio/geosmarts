@@ -5,6 +5,24 @@
         <meta charset="utf-8" />
     </head>
     <body>
+        <style>
+            ul#menu2 li {
+
+                text-align: left;
+
+                background-color: white;
+                color: black;
+                padding: 10px 20px;
+                text-decoration: none;
+                border-radius: 4px 4px 4px 4px;
+            }
+            ul#menu2 li:hover {
+                background-color: red;
+            }
+            
+            
+        </style>
+        
         <img src="http://www.auplod.com/u/ulaopd76ab9.png" alt="Geosmarts"></img>
 
         <!--<h1 th:text="${alue.nimi}">testi</h1>-->
@@ -27,12 +45,13 @@
                 <td colspan="1"> <ul  id="menu2" style="list-style-type:none">
                         <li><h2>Alue: <b th:text="${alue.nimi}"></b></h2></li>
                         <li  th:each="ketju: ${viestiketju}">
-                            <a th:href="@{~/alue/{id1}/{id2}(id1=${ketju.alueID},id2=${ketju.id})}"><span th:text="${ketju.aihe}" >Alue</span></a></li>
+                            <a th:href="@{~/keskustelu/{id2}(id2=${ketju.id})}"><span th:text="${ketju.aihe}" >Alue</span></a></li>
+                            <!--<a th:href="@{~/keskustelu/{id1}/{id2}(id1=${ketju.alueID},id2=${ketju.id})}"><span th:text="${ketju.aihe}" >Alue</span></a></li>-->
                     </ul> </td> 
                 <td colspan="1"><ul  id="menu2" style="list-style-type:none ">
                         <li><h2>Viestit yhteensa</h2></li>
-                        <li th:each="ketju: ${viestiketju}">
-                            <span  th:text="${ketju.numero}">Viestit</span> </li>
+                        <li th:each="Olio: ${bb}">
+                            <span  th:text="${Olio.viestit}">Viestit</span> </li>
                     </ul> </td> 
                 <td colspan="1"><ul  id="menu2" style="list-style-type:none ">
                         <li><h2>Viimeisin viesti</h2> </li>
