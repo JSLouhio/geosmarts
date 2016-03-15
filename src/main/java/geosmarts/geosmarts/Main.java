@@ -18,6 +18,11 @@ public class Main {
     
     public static void main(String[] args) throws Exception {
         
+         // asetetaan portti jos heroku antaa PORT-ympäristömuuttujan
+        if (System.getenv("PORT") != null) {
+            port(Integer.valueOf(System.getenv("PORT")));
+        }
+        
         Database db = new Database();
         
         StringDao sd = new StringDao(db);
@@ -30,7 +35,7 @@ public class Main {
             Alue uusi_alue = new Alue(nimi);
             ad.create(uusi_alue);
             
-            return "Lisätty alue: " + nimi;
+            return "LisÃ¤tty alue: " + nimi;
         });
         
         post("/1", (req, res) -> {
@@ -38,7 +43,7 @@ public class Main {
             Viestiketju uusi_vk = new Viestiketju(aihe);
             vd.create(uusi_vk);
             
-            return "Lisätty alue: " + aihe;
+            return "LisÃ¤tty alue: " + aihe;
         });
         
         tulosta();
@@ -146,7 +151,7 @@ public class Main {
         
 //        System.out.println("alueet: " + ac);
 //        System.out.println("viestit: " + vc);
-//        System.out.println("päivöt: " + pc);
+//        System.out.println("pÃ¤ivÃ¶t: " + pc);
         
         
         ArrayList<Olio> lista = new ArrayList();
