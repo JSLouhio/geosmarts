@@ -1,0 +1,61 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Geosmarts.com - Viestiketjut</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <img src="http://www.auplod.com/u/ulaopd76ab9.png" alt="Geosmarts"></img>
+       
+        <!--<h1 th:text="${alue.nimi}">testi</h1>-->
+       
+        <p> Click <a href="/">here</a> to go back
+        </p>
+        
+        <table id="Aluetable" style= "width:50%">
+            <tr>
+                
+                <td><h2>Alue: <b th:text="${alue.nimi}"></b> -> <b th:text="${alue.nimi}"></b></h2></td>
+                
+                <td><h2> </h2><h2>Viesteja yhteensa</h2></td>
+                <td><h2> </h2><h2>Viimeisin viesti</h2></td>
+            </tr>
+            <tr th:each="viesti: ${viestit}">
+                <td th:text="${viesti.nimi}"></td>
+             
+                <td th:text="${viesti.sisalto}"></td>
+                <td th:text="${viesti.pvm}"></td>
+            </tr>
+        </table>
+       
+        <!--
+        th:href="@{~/jotain/{id}(id=${olio.id})}
+ 
+ 
+        -->
+       
+        <script>
+            function lisaakeskustelu(nimi) {
+                var table = document.getElementById("Aluetable");
+                var row = table.insertRow(1);
+                var solu1 = row.insertCell(0);
+                var solu2 = row.insertCell(1);
+                var solu3 = row.insertCell(2);
+                solu1.innerHTML = nimi;
+                solu2.innerHTML = "0";
+                solu3.innerHTML = "1985-01-02";
+            }
+ 
+ 
+        </script>
+ 
+ 
+        <iframe name="aabel" style="display:none;"></iframe>
+        <form method="POST" action="/1" target="aabel">
+            Alue:<br/>
+            <input type="text" name="keskustelualue"/><br/>
+            <input type="submit" value="Lisaa Keskustelualue" onclick="lisaakeskustelu(sana)"/>
+            <input type="hidden" name="ad_id" value="2"/>
+        </form>
+    </body>
+</html>
