@@ -6,6 +6,7 @@ public class Viesti {
 
     private int id;
     private int kayttajaId;
+    private String nimi;
     private int viestiketjuId;
     private String sisalto;
     private Date aika;
@@ -22,10 +23,22 @@ public class Viesti {
         this.aika = d;
     }
 
+    public Viesti(int id, int kid, int vid, String s, Date d, String n) {
+        this.id = id;
+        this.kayttajaId = kid;
+        this.viestiketjuId = vid;
+        this.sisalto = s;
+        this.aika = d;
+        this.nimi=n;
+    }
+    
     public void setId(int i) {
         this.id = i;
     }
 
+    public String getNimi(){
+        return this.nimi;
+    }
     public void setKayttId(int i) {
         this.kayttajaId = i;
     }

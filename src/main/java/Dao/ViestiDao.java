@@ -1,12 +1,16 @@
 package Dao;
 
-import geosmarts.geosmarts.Database;;
+import geosmarts.geosmarts.Database;
+;
 import geosmarts.geosmarts.Tietokantataulut.Viesti;
+import geosmarts.geosmarts.Tietokantataulut.Viestiketju;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+
+
 
 public class ViestiDao implements Dao<Viesti, Integer> {
 
@@ -55,8 +59,6 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         ResultSet rs = stmt.executeQuery();
         List<Viesti> viestit = new ArrayList<>();
 
-        
-
         while (rs.next()) {
 
             int id = rs.getInt(1);
@@ -99,8 +101,6 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
         ResultSet rs = stmt.executeQuery();
         List<Viesti> viestit = new ArrayList<>();
-
-        
 
         while (rs.next()) {
             int id = rs.getInt("Id");
@@ -145,7 +145,35 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     public void create(Viesti taulu) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
+
+    public List<Viesti> BallIn(Integer key) throws SQLException {
+
+        this.db.connect();
+        Connection connection = this.db.getConnection();
+        String jotain = "";     //toinen taulu, josta haetaan
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viesti \n"
+                + "inner join kayttaja on viesti.lahettaja_id = kayttaja.id_kayttaja\n"
+                + "WHERE viestiketju_id = ?");
+        stmt.setObject(1, key);
+
+        ResultSet rs = stmt.executeQuery();
+        List<Viesti> viestit = new ArrayList<>();
+
+        while (rs.next()) {
+            int id = rs.getInt("id_viesti");
+            String aihe = rs.getString("sisalto");
+            Date aika = rs.getDate("aika");
+            int idAlue = rs.getInt("viestiketju_id");
+            int kid = rs.getInt("lahettaja_id");
+            String nimi = rs.getString("nimimerkki");
+            Viesti v = new Viesti(id, kid, idAlue, aihe, aika, nimi);
+            viestit.add(v);
+            this.db.lisaaViesti(v);
+        }
+        rs.close();
+        stmt.close();
+        this.db.disconnect();
+        return viestit;
+    }
 
 }

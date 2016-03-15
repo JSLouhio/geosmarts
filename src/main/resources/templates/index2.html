@@ -62,11 +62,14 @@
                 </td>
             </tr>
        
+            
+        <!--th:href="@{~/jotain/{id}(id=${olio.id})}-->
+            
             <tr>
                 <td colspan="1"> <ul  id="menu2" style="list-style-type:none">
                         <li><h2>Alueet</h2></li>
                         <li  th:each="Olio: ${aa}">
-                            <a href="${Olio.nimi}"><span th:text="${Olio.nimi}" >Alue</span></a></li>
+                            <a th:href="@{~/alue/{id}(id=${Olio.id})}"><span th:text="${Olio.nimi}" >Alue</span></a></li>
                     </ul> </td> 
                 <td colspan="1"><ul  id="menu2" style="list-style-type:none ">
                         <li><h2>Viestit</h2></li>

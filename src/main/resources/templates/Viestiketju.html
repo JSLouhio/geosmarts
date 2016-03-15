@@ -6,28 +6,48 @@
     </head>
     <body>
         <img src="http://www.auplod.com/u/ulaopd76ab9.png" alt="Geosmarts"></img>
-       
+
         <!--<h1 th:text="${alue.nimi}">testi</h1>-->
-       
+
+        <p> Click <a href="/">here</a> to go back
+        </p>
+
         <table id="Aluetable" style= "width:50%">
-            <tr>
+<!--            <tr>
                 <td><h2>Alue: <b th:text="${alue.nimi}"></b></h2></td>
                 <td><h2> </h2><h2>Viesteja yhteensa</h2></td>
                 <td><h2> </h2><h2>Viimeisin viesti</h2></td>
-            </tr>
-            <tr th:each="ketju: ${viestiketju}">
+            </tr>-->
+<!--            <tr th:each="ketju: ${viestiketju}">
                 <td th:text="${ketju.aihe}"></td>
                 <td th:text="${ketju.numero}"></td>
                 <td th:text="${ketju.pvm}"></td>
+            </tr>-->
+            <tr>
+                <td colspan="1"> <ul  id="menu2" style="list-style-type:none">
+                        <li><h2>Alue: <b th:text="${alue.nimi}"></b></h2></li>
+                        <li  th:each="ketju: ${viestiketju}">
+                            <a th:href="@{~/alue/{id}(id=${ketju.alueid})/{id2}(id2=${ketju.id})}"><span th:text="${ketju.aihe}" >Alue</span></a></li>
+                    </ul> </td> 
+                <td colspan="1"><ul  id="menu2" style="list-style-type:none ">
+                        <li><h2>Viestit yhteensa</h2></li>
+                        <li th:each="ketju: ${viestiketju}">
+                            <span  th:text="${ketju.numero}">Viestit</span> </li>
+                    </ul> </td> 
+                <td colspan="1"><ul  id="menu2" style="list-style-type:none ">
+                        <li><h2>Viimeisin viesti</h2> </li>
+                        <li th:each="ketju: ${viestiketju}">
+                            <span  th:text="${ketju.pvm}">pvm</span> </li>
+                    </ul> </td>
             </tr>
         </table>
-       
+
         <!--
         th:href="@{~/jotain/{id}(id=${olio.id})}
  
  
         -->
-       
+
         <script>
             function lisaakeskustelu(nimi) {
                 var table = document.getElementById("Aluetable");
@@ -39,11 +59,11 @@
                 solu2.innerHTML = "0";
                 solu3.innerHTML = "1985-01-02";
             }
- 
- 
+
+
         </script>
- 
- 
+
+
         <iframe name="aabel" style="display:none;"></iframe>
         <form method="POST" action="/1" target="aabel">
             Alue:<br/>
