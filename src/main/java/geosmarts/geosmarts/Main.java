@@ -17,7 +17,16 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+<<<<<<< HEAD
 
+=======
+        
+         // asetetaan portti jos heroku antaa PORT-ympäristömuuttujan
+        if (System.getenv("PORT") != null) {
+            port(Integer.valueOf(System.getenv("PORT")));
+        }
+           
+>>>>>>> 197467c64d9ea3cca8da0c44cc989b1cb7ed220c
         Database db = new Database();
 
         StringDao sd = new StringDao(db);
@@ -29,16 +38,26 @@ public class Main {
             String nimi = req.queryParams("keskustelualue");
             Alue uusi_alue = new Alue(nimi);
             ad.create(uusi_alue);
+<<<<<<< HEAD
 
             return "Lisätty alue: " + nimi;
+=======
+            
+            return "LisÃ¤tty alue: " + nimi;
+>>>>>>> 197467c64d9ea3cca8da0c44cc989b1cb7ed220c
         });
 
         post("/1", (req, res) -> {
             String aihe = req.queryParams("Viestiketju");
             Viestiketju uusi_vk = new Viestiketju(aihe);
             vd.create(uusi_vk);
+<<<<<<< HEAD
 
             return "Lisätty alue: " + aihe;
+=======
+            
+            return "LisÃ¤tty alue: " + aihe;
+>>>>>>> 197467c64d9ea3cca8da0c44cc989b1cb7ed220c
         });
 //        System.out.println("/alue/:numero/:viestiketjuntunnus");
 
@@ -148,7 +167,13 @@ public class Main {
 
 //        System.out.println("alueet: " + ac);
 //        System.out.println("viestit: " + vc);
+<<<<<<< HEAD
 //        System.out.println("päivöt: " + pc);
+=======
+//        System.out.println("pÃ¤ivÃ¶t: " + pc);
+        
+        
+>>>>>>> 197467c64d9ea3cca8da0c44cc989b1cb7ed220c
         ArrayList<Olio> lista = new ArrayList();
 
         int i = 0;
